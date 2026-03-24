@@ -15,7 +15,7 @@ services:
       - ./AGENTS.md:/workspace/AGENTS.md:rw,z
     environment:
       # --- Groq API key ---
-      - GROQ_API_KEY=${GROQ_API_KEY:?GROQ_API_KEY is required}
+      # - GROQ_API_KEY=${GROQ_API_KEY:?GROQ_API_KEY is required}
       - OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT=true
     network_mode: bridge
     restart: "no"
