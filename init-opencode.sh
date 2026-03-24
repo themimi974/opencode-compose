@@ -9,8 +9,10 @@ ok()   { echo -e "\033[32m✔\033[0m $*"; }
 info() { echo -e "\033[34mℹ\033[0m $*"; }
 err()  { echo -e "\033[31m✘\033[0m $*"; exit 1; }
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OPENCODE_DIR="$SCRIPT_DIR/.opencode-compose"
+# Use current working directory, not script location
+# This ensures .opencode-compose is created where the user runs the command
+WORKING_DIR="$(pwd)"
+OPENCODE_DIR="$WORKING_DIR/.opencode-compose"
 
 # --- Placeholder repo (to be implemented) ---
 PLACEHOLDER_REPO="https://github.com/themimi974/opencode-compose.git"
@@ -44,7 +46,7 @@ if [[ ! -d "$OPENCODE_DIR" ]]; then
         info "Clone failed, using local template..."
         LOCAL_TEMPLATE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.opencode-compose"
         if [[ -d "$LOCAL_TEMPLATE" ]]; then
-            cp -r "$LOCAL_TEMPLATE" "$SCRIPT_DIR/.opencode-compose"
+            cp -r "$LOCAL_TEMPLATE" "$WORKING_DIR/.opencode-compose"
             ok "Local template copied to .opencode-compose/"
         else
             err "No template found. Please create .opencode-compose/ manually."
