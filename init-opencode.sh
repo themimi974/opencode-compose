@@ -13,7 +13,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 OPENCODE_DIR="$SCRIPT_DIR/.opencode-compose"
 
 # --- Placeholder repo (to be implemented) ---
-PLACEHOLDER_REPO="https://github.com/themimi974/opencode-docker-compose.git"
+PLACEHOLDER_REPO="https://github.com/themimi974/opencode-compose.git"
 
 # ═══════════════════════════════════════════════════════════════════
 # Step 1: Check if .opencode-compose exists
