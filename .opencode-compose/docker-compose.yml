@@ -1,0 +1,21 @@
+services:
+  opencode:
+    image: ghcr.io/anomalyco/opencode:latest
+    container_name: opencode
+    stdin_open: true
+    tty: true
+
+    working_dir: /workspace
+
+    volumes:
+      # Only the current directory is exposed to the container
+      - ./workspace:/workspace:z
+      - ./opencode.json:/workspace/opencode.json:ro,z
+      - ./.opencode:/workspace/.opencode/:ro,z
+      - ./AGENTS.md:/workspace/AGENTS.md:ro,z
+    environment:
+      # --- Groq API key ---
+      - GROQ_API_KEY=${GROQ_API_KEY:?GROQ_API_KEY is required}
+      - OPENCODE_EXPERIMENTAL_DISABLE_COPY_ON_SELECT=true
+    network_mode: bridge
+    restart: "no"
