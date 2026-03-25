@@ -31,6 +31,15 @@ info "Using $ENGINE, project: $PROJECT_NAME"
 # --- Cleanup old container ---
 $ENGINE rm -f "$($ENGINE ps -q --filter "name=$CONTAINER_NAME")" 2>/dev/null || true
 
+# --- Setup agents ---
+AGENCY_SCRIPT="$SCRIPT_DIR/setup-scripts/the-agency.sh"
+if [[ -f "$AGENCY_SCRIPT" ]]; then
+    info "Running agency setup..."
+    bash "$AGENCY_SCRIPT"
+else
+    err "the-agency.sh not found at $AGENCY_SCRIPT"
+fi
+
 # --- Run ---
 cd "$SCRIPT_DIR"
 $ENGINE compose run --rm opencode
