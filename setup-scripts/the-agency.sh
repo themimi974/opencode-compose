@@ -57,13 +57,13 @@ done < <(find "$AGENTS_ROOT" -name "*.md" -not -name "README.md" -print0)
 
 ok "$count agents installed → $DEST"
 
-# --- Remove color: lines from all .md files ---
-info "Removing color: lines from .md files..."
+# --- Remove color: and tools: lines from all .md files ---
+info "Removing color: and tools: lines from .md files..."
 while IFS= read -r -d '' f; do
-  sed -i '/^color:/d' "$f"
+  sed -i '/^color:/d; /^tools:/d' "$f"
 done < <(find "$DEST" -name "*.md" -print0)
 
-ok "Removed color: lines from all agents."
+ok "Removed color: and tools: lines from all agents."
 
 # --- Update cache ---
 cp "$TEMP_ZIP" "$OLD_ZIP"
