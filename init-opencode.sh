@@ -75,23 +75,33 @@ if [[ -d "$USER_SSH_DIR" ]]; then
             ok "No SSH configured (local-only mode)"
             ;;
         2)
-            # List available keys
+            # List available private keys (exclude .pub, known_hosts, etc.)
             shopt -s nullglob
-            keys=("$USER_SSH_DIR"/*)
+            # Only get private keys: files that don't end in .pub and aren't known_hosts*
+            keys=()
+            for f in "$USER_SSH_DIR"/*; do
+                filename="$(basename "$f")"
+                if [[ ! "$filename" =~ \.pub$ ]] && [[ ! "$filename" =~ ^known_hosts ]]; then
+                    keys+=("$f")
+                fi
+            done
+            
             if [[ ${#keys[@]} -eq 0 ]]; then
-                err "No keys found in $USER_SSH_DIR"
+                err "No private keys found in $USER_SSH_DIR"
             fi
             
             echo "Available keys:"
             select key in "${keys[@]}"; do
-                [[ -n "$key" ]] && break
-            done 2>/dev/null
+                if [[ -z "$key" ]]; then
+                    echo "Invalid selection. Please enter a number."
+                elif [[ -n "$key" ]]; then
+                    break
+                fi
+            done
             
-            if [[ -n "$key" ]]; then
-                KEY_NAME="$(basename "$key")"
-                SSH_VOLUME="- $key:/root/.ssh/$KEY_NAME:ro,z"
-                ok "Selected key: $KEY_NAME"
-            fi
+            KEY_NAME="$(basename "$key")"
+            SSH_VOLUME="- $key:/root/.ssh/$KEY_NAME:ro,z"
+            ok "Selected key: $KEY_NAME"
             ;;
         3)
             SSH_VOLUME="- $USER_SSH_DIR:/root/.ssh:ro,z"
