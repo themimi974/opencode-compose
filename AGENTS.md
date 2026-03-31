@@ -15,13 +15,10 @@ OpenCode instances manager using Docker/Podman Compose.
 ### Running OpenCode
 
 ```bash
-# Start OpenCode container
-./start-single.sh
-
-# Install init-opencode globally
+# Install init-opencode globally (one-time)
 ./install-init-opencode.sh
 
-# Then run from any directory
+# Use for any project - run from project directory
 init-opencode
 ```
 
@@ -130,6 +127,19 @@ err()  { echo -e "\033[31m✘\033[0m $*"; exit 1; }
     git commit -m "your commit message"
     git push origin <branch-name>
     ```
+
+### First-Time Git Setup
+
+Required before committing:
+
+```bash
+# Set your identity
+git config user.email "themimi974@users.noreply.github.com"
+git config user.name "themimi974"
+
+# Add GitHub host key (required for SSH)
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+```
 
 ---
 
