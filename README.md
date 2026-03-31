@@ -81,3 +81,7 @@ Edit `opencode.json` to change the model:
 ## License
 
 MIT
+
+## Creator
+
+themimi974
