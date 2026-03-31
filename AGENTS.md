@@ -14,6 +14,8 @@ OpenCode Compose is a Docker/Podman-based manager for running OpenCode in isolat
 
 ## Git Workflow
 
+- **Always use SSH** for remote operations (not HTTPS)
+- Configure SSH remote: `git remote set-url origin git@github.com:themimi974/opencode-compose.git`
 - Always push code to `main` branch
 - Before pushing, ensure you are on the correct branch:
   ```
