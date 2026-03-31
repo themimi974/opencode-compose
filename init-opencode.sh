@@ -101,6 +101,11 @@ if [[ -d "$USER_SSH_DIR" ]]; then
             
             KEY_NAME="$(basename "$key")"
             SSH_VOLUME="- $key:/root/.ssh/$KEY_NAME:ro,z"
+            # Also mount SSH config file for GitHub host key configuration
+            if [[ -f "$USER_SSH_DIR/config" ]]; then
+                SSH_VOLUME="$SSH_VOLUME\n      - $USER_SSH_DIR/config:/root/.ssh/config:ro,z"
+                info "SSH config file will also be mounted"
+            fi
             ok "Selected key: $KEY_NAME"
             ;;
         3)
