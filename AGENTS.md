@@ -10,6 +10,8 @@ You are running inside an Alpine Linux container.
 
 ## Git Workflow
 
+* **Use SSH for GIT**
+
 * **Verify Current Branch:** Before making any changes to the scripts or codebase, always check which branch is currently being used for the project:
     ```bash
     git status
