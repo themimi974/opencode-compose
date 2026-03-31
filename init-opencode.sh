@@ -149,12 +149,18 @@ LOCAL_OPENCODE="$OPENCODE_DIR/.opencode"
 echo
 if [[ -f "$GLOBAL_CONFIG" ]] || [[ -d "$GLOBAL_DATA" ]]; then
     info "Found global OpenCode config/data"
-    read -p "Sync global config into project? [y/N] " -n 1 -r
-    echo
+    if [[ -d "$LOCAL_OPENCODE" ]] && [[ -n "$(ls -A "$LOCAL_OPENCODE" 2>/dev/null)" ]]; then
+        info "Local .opencode/ already has data (sessions preserved)"
+        read -p "Sync global config? This will merge/overwrite some files. [y/N] " -n 1 -r
+        echo
+    else
+        read -p "Sync global config into project? [y/N] " -n 1 -r
+        echo
+    fi
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         mkdir -p "$LOCAL_OPENCODE"
         [[ -f "$GLOBAL_CONFIG" ]] && cp "$GLOBAL_CONFIG" "$LOCAL_OPENCODE/" && ok "Copied global config"
-        [[ -d "$GLOBAL_DATA" ]] && cp -r "$GLOBAL_DATA"/* "$LOCAL_OPENCODE/" 2>/dev/null && ok "Copied global data"
+        [[ -d "$GLOBAL_DATA" ]] && cp -rn "$GLOBAL_DATA"/* "$LOCAL_OPENCODE/" 2>/dev/null && ok "Copied global data (-n prevents overwrite)"
     fi
 else
     info "No global config found at $GLOBAL_CONFIG"
