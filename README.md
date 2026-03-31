@@ -38,6 +38,12 @@ Then run from any directory:
 init-opencode
 ```
 
+### Uninstall
+
+```bash
+./uninstall-init-opencode.sh
+```
+
 ## Features
 
 - **Containerized OpenCode** - Run OpenCode in an isolated Docker/Podman container
@@ -52,6 +58,7 @@ init-opencode
 | `start-single.sh` | Start OpenCode container |
 | `init-opencode.sh` | Bootstrap new OpenCode environment |
 | `install-init-opencode.sh` | Install init-opencode to system |
+| `uninstall-init-opencode.sh` | Uninstall init-opencode from system |
 | `setup-scripts/the-agency.sh` | Setup agency agents |
 
 ## Configuration
